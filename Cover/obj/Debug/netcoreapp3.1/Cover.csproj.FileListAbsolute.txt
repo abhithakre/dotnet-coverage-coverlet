@@ -1,0 +1,12 @@
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\bin\Debug\netcoreapp3.1\Cover.exe
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\bin\Debug\netcoreapp3.1\Cover.deps.json
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\bin\Debug\netcoreapp3.1\Cover.runtimeconfig.json
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\bin\Debug\netcoreapp3.1\Cover.runtimeconfig.dev.json
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\bin\Debug\netcoreapp3.1\Cover.dll
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\bin\Debug\netcoreapp3.1\Cover.pdb
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\obj\Debug\netcoreapp3.1\Cover.AssemblyInfoInputs.cache
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\obj\Debug\netcoreapp3.1\Cover.AssemblyInfo.cs
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\obj\Debug\netcoreapp3.1\Cover.csproj.CoreCompileInputs.cache
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\obj\Debug\netcoreapp3.1\Cover.dll
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\obj\Debug\netcoreapp3.1\Cover.pdb
+C:\Users\abhishek_thakre\dotnet-coverage\Cover\obj\Debug\netcoreapp3.1\Cover.genruntimeconfig.cache
