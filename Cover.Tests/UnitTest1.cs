@@ -1,5 +1,8 @@
+// Cover.Tests/UnitTest1.cs
 using System;
 using Xunit;
+
+using Cover;
 
 namespace Cover.Tests
 {
