@@ -46,13 +46,12 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Checking MSBuild
-        run: |          
+        run: |       
+          
           dotnet tool install --global dotnet-sonarscanner 
           dotnet sonarscanner begin  /k:${{ secrets.PROJECT_KEY }} /o:${{ secrets.ORG_KEY }} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="Cover.Tests\TestResults\*\coverage.opencover.xml"  /d:sonar.cs.vstest.reportsPaths="Cover.Tests\TestResults\*.trx" 
           dotnet build ./dotnet-coverage.sln
           dotnet test --settings coverlet.runsettings
-          packages\xunit.runner.console.2.2.0\tools\xunit.console dotnet-coverage\bin\Debug\dotnet-coverage.dll -xml XUnitResults.xml
-          packages\xunit.runner.console.2.1.0\tools\xunit.console.exe XUnitProject1\bin\Debug\XUnitProject1.dll -xml ./XUnitResults.xml
           dotnet sonarscanner end         
         env:
           GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
