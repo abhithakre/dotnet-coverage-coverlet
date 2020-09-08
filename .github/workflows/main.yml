@@ -7,67 +7,34 @@ on:
       - "v*"
   pull_request:
     branches: [ master ]
-
-jobs:
-  build_test_version:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    steps:
-    - uses: actions/checkout@v1
-    
-    - name: Fetch all history for all tag and branches
-      run: git fetch --prune 
-
-      
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - run: |
-        dotnet --version
-                       
-    - name: Install dependencies1
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
-    - name: abc
-      run: dotnet test --collect="XPlat Code Coverage"
+env:
+  AWS_DEFAULT_REGION: ap-southeast-1
+  AWS_DEFAULT_OUTPUT: json
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  CONTAINER_IMAGE: app-image:master-${{ github.sha }}
   
-  sonar_scanner:
-    needs: build_test_version
+jobs:
+  build-and-push:
+    name: Building and pushing image to AWS ECR
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code for scanning
-        uses: actions/checkout@v1
 
-      - name: Checking MSBuild
-        run: |       
-          
-          dotnet tool install --global dotnet-sonarscanner 
-          dotnet sonarscanner begin  /k:${{ secrets.PROJECT_KEY }} /o:${{ secrets.ORG_KEY }} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="Cover.Tests\TestResults\*\coverage.opencover.xml"  /d:sonar.cs.vstest.reportsPaths="Cover.Tests\TestResults\*.trx" 
-          dotnet build ./dotnet-coverage.sln
-          dotnet test --settings coverlet.runsettings
-          dotnet sonarscanner end  /d:sonar.login=${{ secrets.SONAR_TOKEN }}      
-        env:
-          GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
-          
-      - name: Install git version
-        uses: gittools/actions/gitversion/setup@v0.9.2
-        with:
-         versionSpec: '5.2.x'
+    - name: Checkout
+      uses: actions/checkout@master
 
-      - name: Use GitVersion
-        id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.2
-      - run: |
-          echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
-          echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
-          echo "BranchName: ${{ steps.gitversion.outputs.branchName }}"
-          echo "Sha: ${{ steps.gitversion.outputs.sha }}"
-    
-    
+    - name: Setup ECR
+      run: |
+        $( aws ecr get-login --no-include-email )
+
+    - name: Build and tag the image
+      run: |
+        docker build \
+          -t $CONTAINER_IMAGE \
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
+
+    - name: Push
+      if: github.ref == 'refs/heads/master'
+      run: |
+        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
