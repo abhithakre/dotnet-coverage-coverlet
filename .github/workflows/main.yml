@@ -1,22 +1,18 @@
-name: "Auto Assign"
-on:
-  pull_request:
-  push:
-    branches:
-      - master
-      
+name: CI
+
+on: [push]
 
 jobs:
-  test:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v1
-
-
-    - uses: ./
-      with: 
+    - uses: actions/dotnet-coverage-coverlet@v1.0.1
+      with:
         repo-token: ${{ secrets.MYGITHUB_TOKEN }}
         persons: "abhithakre"
-        teams: "abc"
+        teams: "no-team"
         include-draft: false
         skip-with-manual-reviewers: 1
+        
