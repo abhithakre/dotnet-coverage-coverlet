@@ -7,16 +7,9 @@ on:
      
 
 jobs:
-  test:
+  add-reviews:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
-  
-    - uses: ./
-      with: 
-        repo-token: ${{ secrets.MYGITHUB_TOKEN }}
-        persons: "abhithakre"
-        teams: "abc"
-        include-draft: false
-        skip-with-manual-reviewers: 1
+      - uses: abhithakre/dotnet-coverage-coverlet@v1.1.1
+        with:
+          configuration-path: ".github/some_name_for_configs.yml" # Only needed if you use something other than .github/auto_assign.yml
