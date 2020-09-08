@@ -7,16 +7,12 @@ on:
     
 
 jobs:
-  test:
+
+  auto-assign-reviewer:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
-
-    - uses: ./
-      with: 
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        persons: "abhithakre"
-        teams: "abc"
-        include-draft: false
-        skip-with-manual-reviewers: 1
+      - name: Run assignment of reviewer team
+        uses: actions/checkout@v1
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          teamName: 'abc'
