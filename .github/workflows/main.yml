@@ -10,6 +10,6 @@ jobs:
   add-reviews:
     runs-on: ubuntu-latest
     steps:
-      - uses: abhithakre/dotnet-coverage-coverlet@v1.1.1
+      - uses: actions/checkout@v1
         with:
-          configuration-path: ".github/some_name_for_configs.yml" # Only needed if you use something other than .github/auto_assign.yml
+          configuration-path: ".github/auto_assign.yaml" # Only needed if you use something other than .github/auto_assign.yml
