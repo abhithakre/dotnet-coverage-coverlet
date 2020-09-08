@@ -6,7 +6,7 @@ namespace Cover
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World test12345!");
+            Console.WriteLine("Hello World tt!");
         }
 
         public static int Sum(int a, int b)  // <--- Important! Add the public keyword here
