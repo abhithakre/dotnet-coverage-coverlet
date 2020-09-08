@@ -1,26 +1,17 @@
-name: 'Auto Assign Review Teams'
-description: 'Send review requests to teams (with Auto Assignment) or persons'
-author: 'Robert Wiesner'
-branding:
-  icon: 'check'
-  color: 'blue'
+name: 'Auto Assign Action'
+description: 'Add reviewers to pull requests when pull requests are opened.'
+author: 'Kentaro Matsushita'
 inputs:
   repo-token:
-    description: 'Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
-    required: true
-  teams:
-    description: 'Teams (works best with Auto Assignment) - team1, team 2'
-    required: true
-  persons:
-    description: 'Individual Reviewers - person1, person2'
+    description: 'A token for the repo'
+    default:  ${{ secrets.MYGITHUB_TOKEN }}
     required: false
-  include-draft:
-    description: 'If set to true, DRAFT PRs will also be covered (default=false)'
-    required: false
-  skip-with-manual-reviewers:
-    description: 'If the given nubmer of reviewers is already assigned, auto assign will be skipped'
-    required: false
-
+  configuration-path:
+    description: 'A path for the auto-assign configuration'
+    default: '.github/auto_assign.yml'
 runs:
   using: 'node12'
   main: 'index.js'
+branding:
+  icon: 'user-plus'
+  color: 'blue'
