@@ -1,5 +1,5 @@
 {
-  "name": "auto-assign-team-action",
+  "name": "dotnet-coverage-coverlet",
   "version": "0.0.2",
   "private": true,
   "description": "GitHub Action to Assign Review Teams",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rowi1de/auto-assign-review-teams.git"
+    "url": "git+https://github.com/abhithakre/dotnet-coverage-coverlet.git"
   },
   "keywords": [
     "actions",
