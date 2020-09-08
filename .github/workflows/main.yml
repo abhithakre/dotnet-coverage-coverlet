@@ -1,18 +1,16 @@
-name: CI
-
-on: [push]
-
+name: "Assign Reviewers"
+on:  
+  push:
+  pull_request:
+    types: [opened, ready_for_review]
+     
 jobs:
-  build:
-
+  assign-reviewers:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: rowi1de/auto-assign-review-teams@v1.0.1
+    - name: "Assign Team and Persons"
+      uses: rowi1de/auto-assign-review-teams@master
       with:
         repo-token: ${{ secrets.MYGITHUB_TOKEN }}
-        persons: "abhithakre"
-        teams: "no-team"
-        include-draft: false
-        skip-with-manual-reviewers: 1
-        
+        teams: "no-team"     # only works for GitHub Organisation/Teams
+        persons: "abhithakre"          # add individual persons here
