@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/auto-assign-review-teams@v1.0.1
+    - uses: actions/checkouts@v1
       with:
         repo-token: ${{ secrets.MYGITHUB_TOKEN }}
         persons: "abhithakre"
