@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - run: install npm
+    - run: npm ci
+    - run: npm run build
+    - run: npm test
     - uses: actions/checkout@v1
       with:
         repo-token: ${{ secrets.MYGITHUB_TOKEN }}
