@@ -4,16 +4,19 @@ on:
   push:
     branches:
       - master
-    
+     
 
 jobs:
-
-  auto-assign-reviewer:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Run assignment of reviewer team
-        uses: actions/checkout@v1
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          teamName: 'abc'
-          persons: "abhithakre"
+    - uses: actions/checkout@v1
+
+  
+    - uses: ./
+      with: 
+        repo-token: ${{ secrets.MYGITHUB_TOKEN }}
+        persons: "abhithakre"
+        teams: "abc"
+        include-draft: false
+        skip-with-manual-reviewers: 1
