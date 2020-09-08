@@ -1,6 +1,6 @@
 name: 'Auto Assign Action'
 description: 'Add reviewers to pull requests when pull requests are opened.'
-author: 'Kentaro Matsushita'
+author: 'abhi thakre'
 inputs:
   repo-token:
     description: 'A token for the repo'
@@ -8,7 +8,7 @@ inputs:
     required: false
   configuration-path:
     description: 'A path for the auto-assign configuration'
-    default: '.github/auto_assign.yml'
+    default: '.github/auto_assign.yaml'
 runs:
   using: 'node12'
   main: 'index.js'
