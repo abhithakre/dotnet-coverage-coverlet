@@ -27,4 +27,4 @@ jobs:
         with:
           repo-token: ${{ secrets.MYGITHUB_TOKEN }}
           persons: "abhithakre"
-          skip-with-manual-reviewers: 5
+         
