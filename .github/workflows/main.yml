@@ -12,9 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
+
     - uses: ./
       with: 
         repo-token: ${{ secrets.MYGITHUB_TOKEN }}
