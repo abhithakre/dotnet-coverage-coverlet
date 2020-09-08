@@ -1,15 +1,26 @@
-name: 'AutoAssignReviewerTeam'
-description: 'Run script that auto-assigns a team as a PR reviewer'
+name: 'Auto Assign Review Teams'
+description: 'Send review requests to teams (with Auto Assignment) or persons'
+author: 'Robert Wiesner'
 branding:
-  icon: 'at-sign'
-  color: 'purple'
+  icon: 'check'
+  color: 'blue'
 inputs:
-  githubToken:
-    description: 'The token to use'
+  repo-token:
+    description: 'Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
     required: true
-  teamName:
-    description: 'The name of the team which will be assigned as a reviewer'
+  teams:
+    description: 'Teams (works best with Auto Assignment) - team1, team 2'
     required: true
+  persons:
+    description: 'Individual Reviewers - person1, person2'
+    required: false
+  include-draft:
+    description: 'If set to true, DRAFT PRs will also be covered (default=false)'
+    required: false
+  skip-with-manual-reviewers:
+    description: 'If the given nubmer of reviewers is already assigned, auto assign will be skipped'
+    required: false
+
 runs:
   using: 'node12'
   main: 'index.js'
