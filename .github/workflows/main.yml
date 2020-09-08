@@ -1,47 +1,24 @@
-name: .NET Core
-
+name: "Test typescript-action"
 on:
-  push:
-    branches: [ master ]
-    tags: 
-      - "v*"
   pull_request:
-    branches: [ master ]
-env:
-  AWS_DEFAULT_REGION: ap-southeast-1
-  AWS_DEFAULT_OUTPUT: json
-  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  CONTAINER_IMAGE: app-image:master-${{ github.sha }}
-  
+  push:
+    branches:
+      - master
+    
+
 jobs:
-  add-reviews:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-        with:
-          configuration-path: ".github/auto_assign.yaml" # Only needed if you use something other than .github/auto_assign.yml:
-   
-  build-and-push:
-    name: Building and pushing image to AWS ECR
-    runs-on: ubuntu-latest
-    steps:
+    - uses: actions/checkout@v1
 
-    - name: Checkout
-      uses: actions/checkout@master
-
-    - name: Setup ECR
-      run: |
-        $( aws ecr get-login --no-include-email )
-
-    - name: Build and tag the image
-      run: |
-        docker build \
-          -t $CONTAINER_IMAGE \
-          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
-
-    - name: Push
-      if: github.ref == 'refs/heads/master'
-      run: |
-        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
+    - run: npm ci
+    - run: npm run build
+    - run: npm test
+    - uses: ./
+      with: 
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        persons: "abhithakre"
+        teams: "no-team"
+        include-draft: false
+        skip-with-manual-reviewers: 1
